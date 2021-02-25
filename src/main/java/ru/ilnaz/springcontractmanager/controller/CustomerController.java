@@ -26,4 +26,14 @@ public class CustomerController {
     public void addCustomer(@RequestBody @Valid Customer customer) {
         customerRepository.add(customer);
     }
+
+    @PostMapping("/del")
+    public void delCustomer(@RequestBody @Valid Customer customer) {
+        customerRepository.delete(customer);
+    }
+
+    @PostMapping("/upd")
+    public void updateCustomer(@RequestBody @Valid Customer customer) {
+        customerRepository.update(customer);
+    }
 }

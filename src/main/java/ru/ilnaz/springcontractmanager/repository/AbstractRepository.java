@@ -11,16 +11,50 @@ public abstract class AbstractRepository<T> implements Repository<T> {
     @Override
     public void add(T item) {
 
-    }
+        String query = "insert into " + this.getTableName() + this.insertQuery();
 
-    @Override
-    public void delete(T item) {
+        try (Connection connection = DBConnection.getConnection();
+             PreparedStatement ps = connection.prepareStatement(query)) {
 
+            insertFields(ps);
+            ps.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
     public void update(T item) {
 
+        String query = "update " + this.getTableName() + this.updateQuery();
+
+        try (Connection connection = DBConnection.getConnection();
+             PreparedStatement ps = connection.prepareStatement(query)) {
+
+            updateFields(ps);
+            ps.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void delete(T item) {
+
+        String query = "delete from " + this.getTableName() + " where id=?";
+
+        try (Connection connection = DBConnection.getConnection();
+             PreparedStatement ps = connection.prepareStatement(query)) {
+
+            ps.setInt(1, this.getId());
+            ps.executeUpdate();
+
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -44,5 +78,15 @@ public abstract class AbstractRepository<T> implements Repository<T> {
 
     public abstract String getTableName();
 
+    public abstract String insertQuery();
+    public abstract String updateQuery();
+
     public abstract T getModel(ResultSet rs) throws SQLException;
+
+    public abstract int getId();
+
+    public abstract void insertFields(PreparedStatement ps) throws SQLException;
+
+    public abstract void updateFields(PreparedStatement ps) throws SQLException;
+
 }

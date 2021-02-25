@@ -1,3 +1,4 @@
+/*
 package ru.ilnaz.springcontractmanager.repository;
 
 import ru.ilnaz.springcontractmanager.models.Contract;
@@ -13,3 +14,4 @@ public interface ContractRepository {
 
     Contract getContract(int id);
 }
+*/

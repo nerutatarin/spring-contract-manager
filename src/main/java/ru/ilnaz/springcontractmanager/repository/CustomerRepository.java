@@ -1,3 +1,4 @@
+/*
 package ru.ilnaz.springcontractmanager.repository;
 
 import ru.ilnaz.springcontractmanager.models.Customer;
@@ -10,3 +11,4 @@ public interface CustomerRepository {
     void updateCustomer (Customer customer);
     Customer getCustomer (int id);
 }
+*/

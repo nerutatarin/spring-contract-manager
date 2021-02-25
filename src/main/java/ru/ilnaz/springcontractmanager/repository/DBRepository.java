@@ -1,3 +1,4 @@
+/*
 package ru.ilnaz.springcontractmanager.repository;
 
 import ru.ilnaz.springcontractmanager.models.Customer;
@@ -76,6 +77,7 @@ public class DBRepository implements CustomerRepository {
             if (rs.next()) {
 
                 customer.setId(id);
+
                 customer.setManagementStructure(rs.getString("managementStructure"));
                 customer.setName(rs.getString("name"));
                 customer.setPostalCode(rs.getString("postalCode"));
@@ -96,3 +98,4 @@ public class DBRepository implements CustomerRepository {
         return null;
     }
 }
+*/

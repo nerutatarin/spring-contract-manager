@@ -1,3 +1,4 @@
+/*
 package ru.ilnaz.springcontractmanager.repository;
 
 public class Query {
@@ -18,3 +19,4 @@ public class Query {
         return "update customer set managementStructure=?, name=?, postalCode=?, subject=?, city=?, street=?, house=?, office=?, flat=?, phone=?, contactPerson=?,email=? where id=?";
     }
 }
+*/

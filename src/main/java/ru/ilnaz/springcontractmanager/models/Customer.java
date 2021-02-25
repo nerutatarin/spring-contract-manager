@@ -5,13 +5,19 @@ import javax.validation.constraints.Pattern;
 
 public class Customer {
     private int id;
+    @NotEmpty(message = "Не указана структура управления контрагента")
     private String managementStructure;
     @NotEmpty(message = "Не указано имя контрагента")
     private String name;
+    @NotEmpty(message = "Не указан индекс")
     private String postalCode;
+    @NotEmpty(message = "Не указан субъект")
     private String subject;
+    @NotEmpty(message = "Не указан город")
     private String city;
+    @NotEmpty(message = "Не указана улица")
     private String street;
+    @NotEmpty(message = "Не указан номер дома")
     private String house;
     private String office;
     private String flat;
@@ -22,7 +28,7 @@ public class Customer {
     private String email;
 
     public int getId() {
-        return id;
+        return id=1;
     }
 
     public void setId(int id) {
