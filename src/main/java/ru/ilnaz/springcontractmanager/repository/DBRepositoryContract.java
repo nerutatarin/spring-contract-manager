@@ -35,7 +35,7 @@ public class DBRepositoryContract extends AbstractRepository<Contract> {
         ps.setString(5, contract.getDocumentType());
         ps.setDate(6, (Date) contract.getContractStartDate());
         ps.setDate(7, (Date) contract.getContractEndDate());
-        ps.setInt(8, contract.getId());
+
 
     }
 
@@ -50,6 +50,7 @@ public class DBRepositoryContract extends AbstractRepository<Contract> {
         ps.setString(5, contract.getDocumentType());
         ps.setDate(6, (Date) contract.getContractStartDate());
         ps.setDate(7, (Date) contract.getContractEndDate());
+        ps.setInt(8, contract.getId());
     }
 
     @Override
