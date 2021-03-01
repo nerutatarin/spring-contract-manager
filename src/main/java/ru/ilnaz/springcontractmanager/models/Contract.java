@@ -1,6 +1,7 @@
 package ru.ilnaz.springcontractmanager.models;
 
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.util.Date;
 
@@ -9,15 +10,15 @@ public class Contract extends Id<Integer> {
     private int id;
     @NotEmpty(message = "Не указан номер контракта")
     private String contractNumber;
-    @NotEmpty(message = "Не указана дата контракта")
+    @NotNull(message = "Не указана дата контракта")
     private Date contractDate;
     @NotEmpty(message = "Не указан предмет контракта")
     private String contractSubject;
     @NotEmpty(message = "Не указан тип документа")
     private String documentType;
-    @NotEmpty(message = "Не указана дата начала контракта")
+    @NotNull(message = "Не указана дата начала контракта")
     private Date contractStartDate;
-    @NotEmpty(message = "Не указана дата окончания контракта")
+    @NotNull(message = "Не указана дата окончания контракта")
     private Date contractEndDate;
     @NotEmpty(message = "Не указана сумма контракта")
     private BigDecimal contractAmount;
