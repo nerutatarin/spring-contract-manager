@@ -3,9 +3,8 @@ package ru.ilnaz.springcontractmanager.models;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Pattern;
 
-public class Customer extends Id<Integer> {
+public class Customer extends Id {
 
-    private int id;
     @NotEmpty(message = "Не указана структура управления контрагента")
     private String managementStructure;
     @NotEmpty(message = "Не указано имя контрагента")
@@ -28,6 +27,13 @@ public class Customer extends Id<Integer> {
     private String contactPerson;
     private String email;
 
+    public Customer(int id) {
+        super(id);
+    }
+
+    public Customer() {
+
+    }
 
     public String getManagementStructure() {
         return managementStructure;
@@ -144,13 +150,4 @@ public class Customer extends Id<Integer> {
                 '}';
     }
 
-    @Override
-    public Integer getId() {
-        return this.id;
-    }
-
-    @Override
-    public void setId(int item) {
-        this.id = item;
-    }
 }

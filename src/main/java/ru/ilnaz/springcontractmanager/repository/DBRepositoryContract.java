@@ -1,6 +1,5 @@
 package ru.ilnaz.springcontractmanager.repository;
 
-
 import ru.ilnaz.springcontractmanager.models.Contract;
 import ru.ilnaz.springcontractmanager.models.Id;
 
@@ -10,6 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class DBRepositoryContract extends AbstractRepository<Contract> {
+    Contract contract = new Contract();
 
     @Override
     public String getTableName() {
@@ -26,16 +26,9 @@ public class DBRepositoryContract extends AbstractRepository<Contract> {
         return " set number=?, date=?, subject=?, document_type=?, start_date=?, end_date=? where id=?";
     }
 
-    @Override
-    public void deleteFields(PreparedStatement ps) throws SQLException {
-        Contract contract = new Contract();
-        ps.setInt(1,contract.getId());
-    }
 
     @Override
     public void insertFields(PreparedStatement ps) throws SQLException {
-        Contract contract = new Contract();
-
         ps.setString(1, contract.getContractNumber());
         ps.setDate(2, (Date) contract.getContractDate());
         ps.setBigDecimal(3, contract.getContractAmount());
@@ -47,8 +40,6 @@ public class DBRepositoryContract extends AbstractRepository<Contract> {
 
     @Override
     public void updateFields(PreparedStatement ps) throws SQLException {
-        Contract contract = new Contract();
-
         ps.setString(1, contract.getContractNumber());
         ps.setDate(2, (Date) contract.getContractDate());
         ps.setBigDecimal(3, contract.getContractAmount());
@@ -62,9 +53,7 @@ public class DBRepositoryContract extends AbstractRepository<Contract> {
 
     @Override
     public Contract getModel(ResultSet rs) throws SQLException {
-        Contract contract = new Contract();
         contract.setId(rs.getInt("id"));
-
         contract.setContractNumber(rs.getString("number"));
         contract.setContractDate(rs.getDate("name"));
         contract.setContractAmount(rs.getBigDecimal("amount"));
@@ -72,7 +61,6 @@ public class DBRepositoryContract extends AbstractRepository<Contract> {
         contract.setDocumentType(rs.getString("document_type"));
         contract.setContractStartDate(rs.getDate("start_date"));
         contract.setContractEndDate(rs.getDate("end_date"));
-
         return contract;
     }
 

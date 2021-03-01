@@ -1,13 +1,14 @@
 package ru.ilnaz.springcontractmanager.repository;
 
 import ru.ilnaz.springcontractmanager.models.Customer;
-import ru.ilnaz.springcontractmanager.models.Id;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class DBRepositoryCustomer extends AbstractRepository<Customer>{
+public class DBRepositoryCustomer extends AbstractRepository<Customer> {
+    Customer customer = new Customer();
+
     @Override
     public String getTableName() {
         return "customer";
@@ -24,14 +25,7 @@ public class DBRepositoryCustomer extends AbstractRepository<Customer>{
     }
 
     @Override
-    public void deleteFields(PreparedStatement ps) throws SQLException {
-        Customer customer = new Customer();
-        ps.setInt(1,customer.getId());
-    }
-
-    @Override
-    public void insertFields(PreparedStatement ps) throws SQLException{
-        Customer customer = new Customer();
+    public void insertFields(PreparedStatement ps) throws SQLException {
         ps.setString(1, customer.getManagementStructure());
         ps.setString(2, customer.getName());
         ps.setString(3, customer.getPostalCode());
@@ -44,12 +38,10 @@ public class DBRepositoryCustomer extends AbstractRepository<Customer>{
         ps.setString(10, customer.getPhone());
         ps.setString(11, customer.getContactPerson());
         ps.setString(12, customer.getEmail());
-
     }
 
     @Override
     public void updateFields(PreparedStatement ps) throws SQLException {
-        Customer customer = new Customer();
         ps.setString(1, customer.getManagementStructure());
         ps.setString(2, customer.getName());
         ps.setString(3, customer.getPostalCode());
@@ -67,7 +59,6 @@ public class DBRepositoryCustomer extends AbstractRepository<Customer>{
 
     @Override
     public Customer getModel(ResultSet rs) throws SQLException {
-        Customer customer = new Customer();
         customer.setId(rs.getInt("id"));
         customer.setManagementStructure(rs.getString("managementStructure"));
         customer.setName(rs.getString("name"));
@@ -83,5 +74,4 @@ public class DBRepositoryCustomer extends AbstractRepository<Customer>{
         customer.setEmail(rs.getString("email"));
         return customer;
     }
-
 }

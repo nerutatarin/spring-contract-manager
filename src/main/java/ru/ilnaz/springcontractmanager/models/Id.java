@@ -1,9 +1,22 @@
 package ru.ilnaz.springcontractmanager.models;
 
-public abstract class Id <T>{
+public class Id {
 
-    public abstract T getId();
+    protected int id;
 
-    abstract void setId(int item);
+    public Id(int id) {
+        this.id = id;
+    }
 
+    public Id() {
+
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 }

@@ -1,12 +1,15 @@
 package ru.ilnaz.springcontractmanager.repository;
 
+import ru.ilnaz.springcontractmanager.models.Id;
 import ru.ilnaz.springcontractmanager.utils.DBConnection;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public abstract class AbstractRepository<T> implements Repository<T> {
+public abstract class AbstractRepository<T extends Id> implements Repository<T> {
+
     @Override
     public void add(T item) {
 
@@ -47,7 +50,7 @@ public abstract class AbstractRepository<T> implements Repository<T> {
         try (Connection connection = DBConnection.getConnection();
              PreparedStatement ps = connection.prepareStatement(query)) {
 
-            deleteFields(ps);
+            ps.setInt(1, item.getId());
             ps.executeUpdate();
 
         } catch (SQLException e) {
@@ -77,6 +80,7 @@ public abstract class AbstractRepository<T> implements Repository<T> {
     public abstract String getTableName();
 
     public abstract String insertQuery();
+
     public abstract String updateQuery();
 
     public abstract T getModel(ResultSet rs) throws SQLException;
@@ -84,7 +88,4 @@ public abstract class AbstractRepository<T> implements Repository<T> {
     public abstract void insertFields(PreparedStatement ps) throws SQLException;
 
     public abstract void updateFields(PreparedStatement ps) throws SQLException;
-
-    public  abstract void deleteFields(PreparedStatement ps) throws SQLException;
-
 }
