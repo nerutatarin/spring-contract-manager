@@ -2,6 +2,7 @@ package ru.ilnaz.springcontractmanager.repository;
 
 
 import ru.ilnaz.springcontractmanager.models.Contract;
+import ru.ilnaz.springcontractmanager.models.Id;
 
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -9,6 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class DBRepositoryContract extends AbstractRepository<Contract> {
+
     @Override
     public String getTableName() {
         return null;
@@ -25,6 +27,12 @@ public class DBRepositoryContract extends AbstractRepository<Contract> {
     }
 
     @Override
+    public void deleteFields(PreparedStatement ps) throws SQLException {
+        Contract contract = new Contract();
+        ps.setInt(1,contract.getId());
+    }
+
+    @Override
     public void insertFields(PreparedStatement ps) throws SQLException {
         Contract contract = new Contract();
 
@@ -35,8 +43,6 @@ public class DBRepositoryContract extends AbstractRepository<Contract> {
         ps.setString(5, contract.getDocumentType());
         ps.setDate(6, (Date) contract.getContractStartDate());
         ps.setDate(7, (Date) contract.getContractEndDate());
-
-
     }
 
     @Override
@@ -52,6 +58,7 @@ public class DBRepositoryContract extends AbstractRepository<Contract> {
         ps.setDate(7, (Date) contract.getContractEndDate());
         ps.setInt(8, contract.getId());
     }
+
 
     @Override
     public Contract getModel(ResultSet rs) throws SQLException {
@@ -69,9 +76,4 @@ public class DBRepositoryContract extends AbstractRepository<Contract> {
         return contract;
     }
 
-    @Override
-    public int getId() {
-        Contract contract = new Contract();
-        return contract.getId();
-    }
 }

@@ -4,7 +4,8 @@ import javax.validation.constraints.NotEmpty;
 import java.math.BigDecimal;
 import java.util.Date;
 
-public class Contract {
+public class Contract extends Id<Integer> {
+
     private int id;
     @NotEmpty(message = "Не указан номер контракта")
     private String contractNumber;
@@ -21,14 +22,6 @@ public class Contract {
     @NotEmpty(message = "Не указана сумма контракта")
     private BigDecimal contractAmount;
     private BigDecimal contractBalanceAmount;
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public String getContractNumber() {
         return contractNumber;
@@ -107,5 +100,15 @@ public class Contract {
                 ", contractAmount='" + contractAmount + '\'' +
                 ", contractBalanceAmount='" + contractBalanceAmount + '\'' +
                 '}';
+    }
+
+    @Override
+    public Integer getId() {
+        return null;
+    }
+
+    @Override
+    public void setId(int item) {
+
     }
 }

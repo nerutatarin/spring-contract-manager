@@ -1,12 +1,13 @@
 package ru.ilnaz.springcontractmanager.repository;
 
 import ru.ilnaz.springcontractmanager.models.Customer;
+import ru.ilnaz.springcontractmanager.models.Id;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class DBRepositoryCustomer extends AbstractRepository<Customer> {
+public class DBRepositoryCustomer extends AbstractRepository<Customer>{
     @Override
     public String getTableName() {
         return "customer";
@@ -20,6 +21,12 @@ public class DBRepositoryCustomer extends AbstractRepository<Customer> {
     @Override
     public String updateQuery() {
         return " set managementStructure=?, name=?, postalCode=?, subject=?, city=?, street=?, house=?, office=?, flat=?, phone=?, contactPerson=?,email=? where id=?";
+    }
+
+    @Override
+    public void deleteFields(PreparedStatement ps) throws SQLException {
+        Customer customer = new Customer();
+        ps.setInt(1,customer.getId());
     }
 
     @Override
@@ -75,12 +82,6 @@ public class DBRepositoryCustomer extends AbstractRepository<Customer> {
         customer.setContactPerson(rs.getString("contactPerson"));
         customer.setEmail(rs.getString("email"));
         return customer;
-    }
-
-    @Override
-    public int getId() {
-        Customer customer = new Customer();
-        return customer.getId();
     }
 
 }

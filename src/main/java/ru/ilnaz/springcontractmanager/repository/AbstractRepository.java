@@ -1,7 +1,6 @@
 package ru.ilnaz.springcontractmanager.repository;
 
 import ru.ilnaz.springcontractmanager.utils.DBConnection;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -48,9 +47,8 @@ public abstract class AbstractRepository<T> implements Repository<T> {
         try (Connection connection = DBConnection.getConnection();
              PreparedStatement ps = connection.prepareStatement(query)) {
 
-            ps.setInt(1, this.getId());
+            deleteFields(ps);
             ps.executeUpdate();
-
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -83,10 +81,10 @@ public abstract class AbstractRepository<T> implements Repository<T> {
 
     public abstract T getModel(ResultSet rs) throws SQLException;
 
-    public abstract int getId();
-
     public abstract void insertFields(PreparedStatement ps) throws SQLException;
 
     public abstract void updateFields(PreparedStatement ps) throws SQLException;
+
+    public  abstract void deleteFields(PreparedStatement ps) throws SQLException;
 
 }
