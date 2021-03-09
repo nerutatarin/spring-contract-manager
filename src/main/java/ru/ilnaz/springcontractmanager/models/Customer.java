@@ -1,10 +1,17 @@
 package ru.ilnaz.springcontractmanager.models;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Pattern;
 
+@Entity
+@Table(name = "customer")
 public class Customer extends Id {
 
+    @javax.persistence.Id
+    private int id;
     @NotEmpty(message = "Не указана структура управления контрагента")
     private String managementStructure;
     @NotEmpty(message = "Не указано имя контрагента")
@@ -33,6 +40,16 @@ public class Customer extends Id {
 
     public Customer() {
 
+    }
+
+    @Override
+    public int getId() {
+        return id;
+    }
+
+    @Override
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getManagementStructure() {

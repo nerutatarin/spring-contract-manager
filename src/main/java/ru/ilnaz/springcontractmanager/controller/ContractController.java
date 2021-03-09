@@ -24,6 +24,7 @@ public class ContractController {
 
     @PostMapping("/add")
     public void addContract(@RequestBody @Valid Contract contract) {
+
         contractRepository.add(contract);
     }
 

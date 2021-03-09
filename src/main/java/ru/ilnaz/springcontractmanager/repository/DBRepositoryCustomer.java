@@ -1,13 +1,43 @@
 package ru.ilnaz.springcontractmanager.repository;
 
 import ru.ilnaz.springcontractmanager.models.Customer;
+import ru.ilnaz.springcontractmanager.utils.DBConnection;
 
+import javax.sql.DataSource;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class DBRepositoryCustomer extends AbstractRepository<Customer> {
-    Customer customer = new Customer();
+
+    public DBRepositoryCustomer(DataSource dataSource) {
+        super(dataSource);
+    }
+
+    @Override
+    public void update(Customer customer) {
+        String query = "update " + this.getTableName() + " set managementStructure=?, name=?, postalCode=?, subject=?, city=?, street=?, house=?, office=?, flat=?, phone=?, contactPerson=?,email=? where id=?";
+        try (PreparedStatement ps = dataSource.getConnection().prepareStatement(query)) {
+            ps.setString(1, customer.getManagementStructure());
+            ps.setString(2, customer.getName());
+            ps.setString(3, customer.getPostalCode());
+            ps.setString(4, customer.getSubject());
+            ps.setString(5, customer.getCity());
+            ps.setString(6, customer.getStreet());
+            ps.setString(7, customer.getHouse());
+            ps.setString(8, customer.getOffice());
+            ps.setString(9, customer.getFlat());
+            ps.setString(10, customer.getPhone());
+            ps.setString(11, customer.getContactPerson());
+            ps.setString(12, customer.getEmail());
+            ps.setInt(13, customer.getId());
+
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
     @Override
     public String getTableName() {
@@ -25,7 +55,7 @@ public class DBRepositoryCustomer extends AbstractRepository<Customer> {
     }
 
     @Override
-    public void insertFields(PreparedStatement ps) throws SQLException {
+    public void insertFields(PreparedStatement ps, Customer customer) throws SQLException {
         ps.setString(1, customer.getManagementStructure());
         ps.setString(2, customer.getName());
         ps.setString(3, customer.getPostalCode());
@@ -42,6 +72,8 @@ public class DBRepositoryCustomer extends AbstractRepository<Customer> {
 
     @Override
     public void updateFields(PreparedStatement ps) throws SQLException {
+        Customer customer = new Customer();
+
         ps.setString(1, customer.getManagementStructure());
         ps.setString(2, customer.getName());
         ps.setString(3, customer.getPostalCode());
@@ -59,6 +91,8 @@ public class DBRepositoryCustomer extends AbstractRepository<Customer> {
 
     @Override
     public Customer getModel(ResultSet rs) throws SQLException {
+        Customer customer = new Customer();
+
         customer.setId(rs.getInt("id"));
         customer.setManagementStructure(rs.getString("managementStructure"));
         customer.setName(rs.getString("name"));
